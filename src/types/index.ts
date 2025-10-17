@@ -20,3 +20,8 @@ export interface ICustomer {
   email: string;
   phone: string;
 }
+
+export interface IOrder {
+  customer: ICustomer;
+  products: IProduct[];
+}
