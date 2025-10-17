@@ -1,4 +1,4 @@
-import { IProduct } from '../../types/index.ts'
+import { IProduct } from "../../types/index.ts";
 
 export class ShoppingCart {
   private productCartList: IProduct[];
@@ -16,7 +16,9 @@ export class ShoppingCart {
   }
 
   removeProduct(product: IProduct): void {
-    this.productCartList = this.productCartList.filter(p => p.id !== product.id);
+    this.productCartList = this.productCartList.filter(
+      (p) => p.id !== product.id
+    );
   }
 
   clear(): void {
@@ -24,7 +26,10 @@ export class ShoppingCart {
   }
 
   getProductsTotalPrice(): number {
-    return this.productCartList.reduce((sum, product) => sum + (product.price || 0), 0);
+    return this.productCartList.reduce(
+      (sum, product) => sum + (product.price || 0),
+      0
+    );
   }
 
   getProductsCount(): number {
@@ -32,6 +37,6 @@ export class ShoppingCart {
   }
 
   hasProduct(id: string): boolean {
-    return this.productCartList.some(product => product.id === id);
+    return this.productCartList.some((product) => product.id === id);
   }
 }

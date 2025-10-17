@@ -1,4 +1,4 @@
-import { IProduct } from '../../types/index.ts'
+import { IProduct } from "../../types/index.ts";
 
 export class Catalog {
   private productList: IProduct[];
@@ -17,7 +17,7 @@ export class Catalog {
   }
 
   getProductById(id: string): IProduct | undefined {
-    return this.productList.find(product => product.id === id);
+    return this.productList.find((product) => product.id === id);
   }
 
   setSelectedProduct(product: IProduct | null): void {

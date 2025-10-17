@@ -1,12 +1,12 @@
-import { ICustomer } from '../../types/index.ts'
+import { ICustomer } from "../../types/index.ts";
 
 export class Customer {
-  private payment: 'card' | 'cash' | '' = '';
-  private address: string = '';
-  private email: string = '';
-  private phone: string = '';
+  private payment: "card" | "cash" | "" = "";
+  private address: string = "";
+  private email: string = "";
+  private phone: string = "";
 
-  setPayment(payment: 'card' | 'cash' | ''): void {
+  setPayment(payment: "card" | "cash" | ""): void {
     this.payment = payment;
   }
 
@@ -32,26 +32,26 @@ export class Customer {
   }
 
   clear(): void {
-    this.payment = '';
-    this.address = '';
-    this.email = '';
-    this.phone = '';
+    this.payment = "";
+    this.address = "";
+    this.email = "";
+    this.phone = "";
   }
 
   validate(): { [key: string]: string } {
     const errors: { [key: string]: string } = {};
 
     if (!this.payment) {
-      errors.payment = 'Не выбран вид оплаты';
+      errors.payment = "Не выбран вид оплаты";
     }
     if (!this.address.trim()) {
-      errors.address = 'Укажите адрес';
+      errors.address = "Укажите адрес";
     }
     if (!this.email.trim()) {
-      errors.email = 'Укажите емэйл';
+      errors.email = "Укажите емэйл";
     }
     if (!this.phone.trim()) {
-      errors.phone = 'Укажите телефон';
+      errors.phone = "Укажите телефон";
     }
 
     return errors;
