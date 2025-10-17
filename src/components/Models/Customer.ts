@@ -1,7 +1,7 @@
-import { ICustomer } from "../../types/index.ts";
+import { ICustomer, TPayment } from "../../types/index.ts";
 
 export class Customer {
-  private payment: "card" | "cash" | "" = "";
+  private payment: TPayment = '';
   private address: string = "";
   private email: string = "";
   private phone: string = "";

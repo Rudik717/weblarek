@@ -18,14 +18,21 @@ export interface IProduct {
   description: string;
 }
 
+export type TPayment = "card" | "cash" | "";
+
 export interface ICustomer {
-  payment: "card" | "cash" | "";
+  payment: TPayment;
   address: string;
   email: string;
   phone: string;
 }
 
-export interface IOrder {
-  customer: ICustomer;
-  products: IProduct[];
+export interface IOrder extends ICustomer {
+  total: number;
+  items: string[];
+}
+
+export interface IOrderResult {
+  id: string;
+  total: number;
 }

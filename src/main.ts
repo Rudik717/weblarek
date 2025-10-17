@@ -17,17 +17,30 @@ console.log(
   "Товар найден: ",
   testCatalog.getProductById("854cef69-976d-4c2a-a18c-2aa45046c390")
 );
+testCatalog.setSelectedProduct(apiProducts.items[1]);
+console.log("Выбран продукт:", testCatalog.getSelectedProduct());
 
 testShoppingCart.addProduct(apiProducts.items[1]);
 testShoppingCart.addProduct(apiProducts.items[2]);
 console.log("Продукты в корзине: ", testShoppingCart.getProductCartList());
+console.log(
+  `Общая сумма товаров в корзине: ${testShoppingCart.getProductsTotalPrice()} у.е.`
+);
 testShoppingCart.removeProduct(apiProducts.items[2]);
 console.log("Продукты в корзине: ", testShoppingCart.getProductCartList());
+console.log(`В корзине ${testShoppingCart.getProductsCount()} товаров`);
+console.log(
+  "Есть ли этот товар в корзине?",
+  testShoppingCart.hasProduct(apiProducts.items[1].id)
+);
+testShoppingCart.clear();
 console.log(`В корзине ${testShoppingCart.getProductsCount()} товаров`);
 
 testCustomer.setAddress("Улица Пушкина, дом Колотушкина");
 testCustomer.setPayment("card");
 testCustomer.setPhone("+7999999999");
+console.log(testCustomer.getData(), testCustomer.validate());
+testCustomer.clear();
 console.log(testCustomer.getData(), testCustomer.validate());
 
 const api = new Api(API_URL);
