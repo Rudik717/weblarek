@@ -6,7 +6,7 @@ export class Customer {
   private email: string = "";
   private phone: string = "";
 
-  setPayment(payment: "card" | "cash" | ""): void {
+  setPayment(payment: TPayment): void {
     this.payment = payment;
   }
 
