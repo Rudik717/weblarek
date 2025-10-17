@@ -118,7 +118,7 @@ export interface Product {
 
 ```
 export interface Customer {
-  payment: 'card' | 'cash' | '';
+  payment: TPayment;
   address: string;
   email: string;
   phone: string;
@@ -184,13 +184,13 @@ selectedProduct, если товар не выбран, то сохраняет 
 Конструктор без параметров.
 
 Поля класса: 
-`private payment: 'card' | 'cash' | '' = ''` - способ оплаты заказа - картой или наличными. Может быть не выбран, поэтому по умолчанию пустая строка.
+`private payment: TPayment = ''` - способ оплаты заказа - картой или наличными. Может быть не выбран, поэтому по умолчанию пустая строка.
 `private address: string = ''` - адрес покупателя. По умолчанию пустая строка.
 `private email: string = ''` - email покупателя. По умолчанию пустая строка.
 `private phone: string = ''` - телефон покупателя. По умолчанию пустая строка.
 
 Методы: 
-`setPayment(payment: 'card' | 'cash' | ''): void` - сохраняет способ оплаты.
+`setPayment(payment: TPayment): void` - сохраняет способ оплаты.
 `setAddress(address: string): void` - сохраняет адрес покупателя.
 `setEmail(email: string): void` - сохраняет email покупателя.
 `setPhone(phone: string): void` - сохраняет телефон покупателя.
@@ -211,4 +211,4 @@ selectedProduct, если товар не выбран, то сохраняет 
 
 Методы класса: 
 `getProducts(): Promise<IProduct[]>` - выполняет GET запрос к эндпоинту /product/ и возвращает промис с массивом товаров.
-`sendOrder(order: IOrder): Promise<void>` - выполняет POST запрос к эндпоинту /order/ и отправляет на сервер объект с данными о заказе.
+`sendOrder(order: IOrder): Promise<IOrderResult>` - выполняет POST запрос к эндпоинту /order/ и отправляет на сервер объект с данными о заказе.
