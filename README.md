@@ -212,3 +212,155 @@ selectedProduct, если товар не выбран, то сохраняет 
 Методы класса: 
 `getProducts(): Promise<IProduct[]>` - выполняет GET запрос к эндпоинту /product/ и возвращает промис с массивом товаров.
 `sendOrder(order: IOrder): Promise<IOrderResult>` - выполняет POST запрос к эндпоинту /order/ и отправляет на сервер объект с данными о заказе.
+
+### Слой представления
+
+#### Класс Header
+Класс отвечает за отрисовку шапки приложения. Содержит сеттер counter для установки значения количества товаров в корзине. Наследуется от класса Component<T>.
+
+Конструктор: `constructor(protected events: IEvents, container: HTMLElement)` - принимает на вход брокер событий и контейнер шапки.
+
+Поля класса: 
+`protected basketButton: HTMLButtonElement` - кнопка открытия корзины.
+`protected counterElement: HTMLElement` - счетчик товаров в корзине.
+
+Методы класса:
+`set counter(value: number)` - устанавливает значение счетчика товаров в корзине.
+
+#### Класс Gallery 
+Класс отвечает за отрисовку списка товаров. Содержит сеттер catalog для установки отображаемого списка. Наследуется от класса Component<T>.
+
+Конструктор: `constructor(container: HTMLElement)` - принимает контейнер, внутри которого будут отрисован список товаров.
+
+Поля класса:
+`galleryElement` - галерея товаров.
+
+Методы класса: 
+`set catalog(items: HTMLElement[])` - устанавливает список товаров, которые будут отражены в каталоге.
+
+#### Класс Modal
+Класс отвечает за отрисовку модального окна. Содержит сеттер modalContent для установки контента, который будет отрисован. Наследуется от класса Component<T>.
+
+Конструктор: `constructor(container: HTMLElement)`
+
+Поля класса:
+`protected closeButton` - кнопка закрытия модального окна.
+`protected contentElement` - элемент, в котором будет находитьсяя отображаемый контент.
+
+Методы класса: 
+`set modalContent(items: HTMLElement[])` - устанавливает контент для отображения.
+
+#### Класс SuccessOrder
+Класс отвечает за отрисовку успешного оформления заказа. Содержит сеттер orderAmount для установки суммы заказа. Наследуется от класса Component<T>.
+
+Конструктор: `constructor(container: HTMLElement)`
+
+Поля класса:
+`protected successOrderClose` - кнопка для закрытия окна успешного заказа.
+`protected successOrderDescription` - элемент содержащий сумму заказа.
+
+Методы класса:
+`set orderAmount(amount: string)` - устанавливает сумму заказа.
+
+#### Класс Card
+Класс отвечает за отрисовку данных о товаре. Является родителем для любого отображения карточек. Класс содержит сеттеры titleProduct - для установки названия товара и priceProduct для установки цены товара. Наследуется от класса Component<T>.
+
+Конструктор: `constructor(container: HTMLElement)` - принимает на вход контейнер карточки товара.
+
+Поля класса:
+`protected title` - наименование товара.
+`protected price` - цена товара.
+
+Методы класса:
+`set titleProduct(value: string)` - устанавливает наименование товара.
+`set priceProduct(value: string)` - устанавливает цену товара.
+
+#### Класс CardCatalog
+Класс отвечает за отрисовку карточек товаров в каталоге товаров. Класс содержит сеттеры category - для установки категории товара и image - для установки картинки товара. Наследуется от класса Card.
+
+Конструктор: `constructor(container: HTMLElement, ```actions?: ICardActions```)` - принимает на вход контейнер карточки.
+
+Поля класса:
+`protected imageElement` - картинка карточки товара.
+`protected categoryElement` - категория товара.
+
+Медоты класса:
+`set category(value: string)` - устанавливает категорию товара.
+`set image(value: string)` - устанавливает картинку товара.
+
+#### Класс CardPreview
+Класс отвечает за отрисовку делальной информации о карточке товара в модальном окне при клике на нее в каталоге. Класс содержит сеттеры Наследуется от класса Card.
+
+Конструктор: `constructor(container: HTMLElement)` - принимает на вход контейнер карточки.
+
+Поля класса:
+`protected imageElement` - картинка карточки товара.
+`protected categoryElement` - категория товара.
+`protected descriptionElement` - описание товара.
+`protected buttonPreviewElement` - кнопка для добавления товара в корзину/удаления товара из корзины.
+
+Медоты класса:
+`set category(value: string)` - устанавливает категорию товара.
+`set image(value: string)` - устанавливает картинку товара.
+`set description(value: string)` - устанавливает описание товара.
+
+#### Класс CardBasket
+Класс отвечает за отрисовку информации о товаре в корзине. Класс имеет сеттер indexProductBasket - для установки порядкового значения товара в корзине. Наследуется от класса Card.
+
+Конструктор: `constructor(container: HTMLElement)` - принимает на вход контейнер карточки товара.
+
+Поля класса:
+`protected index(value: string)` - наименование товара.
+`protected deleteButtonElement(value: string)` - кнопка для удаления товара из корзины.
+
+Методы класса:
+`set indexProductBasket(value: string)` - устанавливает порядковое значение товара в корзине.
+
+#### Класс Basket
+Класс отвечает за отрисовку корзины с товарами. Класс имеет сеттеры basketList - для установки списка товаров в корзине и basketPrice для установки общей суммы корзины. Наследуется от класса Component<T>.
+
+Конструктор: `constructor(container: HTMLElement)` - принимает на вход контейнер корзины товаров.
+
+Поля класса:
+`protected basketListElement` - элемент, содержащий список товаров в корзине.
+`protected basketOrderButton` - кнопка для оформления заказа.
+`protected basketPriceElement` - элемент, содержащий сумму всех товаров в корзине.
+
+Методы класса:
+`set basketList(items: HTMLElement[])` - устанавливает список товаров в корзине
+`set basketPrice(value: string)` - устанавливает цену всех товаров в корзине.
+
+#### Класс Form
+Класс отвечает за базовую отрисовку формы оформления заказа. Является родителем для остальных форм при оформлении заказа. Класс имеет сеттеры errorForm - для утановки текст ошибок и toggleButtonForm для переключения состояния кнопки отправки формы. Наследуется от класса Component<T>.
+
+Конструктор: `constructor(container: HTMLElement)` - принимает на вход контейнер формы.
+
+Поля класса:
+`protected submitButton` - кнопка отправки формы.
+`protected errorElement` - элемент для отображения ошибок.
+
+Методы класса:
+`set errorForm(value: string)` - устанавливает значение ошибки.
+`set toggleButtonForm(value: boolean)` - переключает состояние кнопки.
+
+#### Класс FormOrder
+Класс отвечает за отрисовку формы с выбором способа оплаты и адресом доставки. Класс имеет сеттер paymentMethod для выбора способа оплаты. Наследуется от класса Form.
+
+Конструктор: `constructor(container: HTMLElement)` - принимает на вход контейнер формы.
+
+Поля класса:
+`protected buttonOnlinePayment` - кнопка для выбора оплаты онлайн.
+`protected buttonOfflinePayment` - кнопка для выбора оплаты при получении.
+`protected addressDeliveryInput` - поле для ввода адреса доставки.
+
+Методы класса:
+`set paymentMethod(value: TPayment)` - устанавливает выбранный метод оплаты.
+
+#### Класс FormContacts
+Класс отвечает за отрисовку формы с email и номером телефона. Наследуется от класса Form.
+
+Конструктор: `constructor(container: HTMLElement)` - принимает на вход контейнер формы.
+
+Поля класса:
+`protected emailInput` - поле для ввода email.
+`protected phoneInput` - поле для ввода номера телефона.

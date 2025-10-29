@@ -6,6 +6,7 @@ import { Customer } from "./components/Models/Customer";
 import { Communication } from "./components/Communication/Communication.ts";
 import { Api } from "./components/base/Api.ts";
 import { API_URL } from "./utils/constants.ts";
+import { Header } from "./components/View/Header.ts";
 
 const testCatalog = new Catalog();
 const testShoppingCart = new ShoppingCart();
@@ -56,3 +57,9 @@ communication
   .catch((err) => {
     console.error("Ошибка при загрузке каталога:", err);
   });
+
+  /*const headerElement = document.querySelector('.header')
+
+  const newHeader = new Header(headerElement as HTMLElement);
+  newHeader.counter = 5;
+  newHeader.render();*/
