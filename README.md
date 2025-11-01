@@ -241,7 +241,7 @@ selectedProduct, если товар не выбран, то сохраняет 
 #### Класс Modal
 Класс отвечает за отрисовку модального окна. Содержит сеттер modalContent для установки контента, который будет отрисован. Наследуется от класса Component<T>.
 
-Конструктор: `constructor(container: HTMLElement)` - принимает на вход брокер событий и контейнер модального окна.
+Конструктор: `constructor(protected events: IEvents, container: HTMLElement)` - принимает на вход брокер событий и контейнер модального окна.
 
 Поля класса:
 `protected closeButton` - кнопка закрытия модального окна.
@@ -253,16 +253,16 @@ selectedProduct, если товар не выбран, то сохраняет 
 #### Класс SuccessOrder
 Класс отвечает за отрисовку успешного оформления заказа. Содержит сеттер orderAmount для установки суммы заказа. Наследуется от класса Component<T>.
 
-Конструктор: `constructor(container: HTMLElement)`
+Конструктор: `constructor(protected events: IEvents, container: HTMLElement)` - принимает на вход брокер событий и контейнер подтверженного заказа.
 
 Поля класса:
 `protected successOrderClose` - кнопка для закрытия окна успешного заказа.
 `protected successOrderDescription` - элемент содержащий сумму заказа.
 
 Методы класса:
-`set orderAmount(amount: string)` - устанавливает сумму заказа.
+`set orderAmount(amount: number)` - устанавливает сумму заказа.
 
-#### Класс Card
+#### Класс Card<T>
 Класс отвечает за отрисовку данных о товаре. Является родителем для любого отображения карточек. Класс содержит сеттеры titleProduct - для установки названия товара и priceProduct для установки цены товара. Наследуется от класса Component<T>.
 
 Конструктор: `constructor(container: HTMLElement)` - принимает на вход контейнер карточки товара.
@@ -273,25 +273,25 @@ selectedProduct, если товар не выбран, то сохраняет 
 
 Методы класса:
 `set titleProduct(value: string)` - устанавливает наименование товара.
-`set priceProduct(value: string)` - устанавливает цену товара.
+`set priceProduct(value: number | null)` - устанавливает цену товара.
 
 #### Класс CardCatalog
 Класс отвечает за отрисовку карточек товаров в каталоге товаров. Класс содержит сеттеры category - для установки категории товара и image - для установки картинки товара. Наследуется от класса Card.
 
-Конструктор: `constructor(container: HTMLElement, ```actions?: ICardActions```)` - принимает на вход контейнер карточки.
+Конструктор: `constructor(container: HTMLElement, actions?: ICardActions)` - принимает на вход контейнер карточки и объект с обработчиками событий.
 
 Поля класса:
 `protected imageElement` - картинка карточки товара.
 `protected categoryElement` - категория товара.
 
 Медоты класса:
-`set category(value: string)` - устанавливает категорию товара.
+`set category(value: TCategory)` - устанавливает категорию товара.
 `set image(value: string)` - устанавливает картинку товара.
 
 #### Класс CardPreview
 Класс отвечает за отрисовку делальной информации о карточке товара в модальном окне при клике на нее в каталоге. Класс содержит сеттеры Наследуется от класса Card.
 
-Конструктор: `constructor(container: HTMLElement)` - принимает на вход контейнер карточки.
+Конструктор: `constructor(container: HTMLElement, actions?: ICardActions)` - принимает на вход контейнер карточки и объект с обработчиками событий.
 
 Поля класса:
 `protected imageElement` - картинка карточки товара.
@@ -300,18 +300,18 @@ selectedProduct, если товар не выбран, то сохраняет 
 `protected buttonPreviewElement` - кнопка для добавления товара в корзину/удаления товара из корзины.
 
 Медоты класса:
-`set category(value: string)` - устанавливает категорию товара.
+`set category(value: TCategory)` - устанавливает категорию товара.
 `set image(value: string)` - устанавливает картинку товара.
 `set description(value: string)` - устанавливает описание товара.
 
 #### Класс CardBasket
 Класс отвечает за отрисовку информации о товаре в корзине. Класс имеет сеттер indexProductBasket - для установки порядкового значения товара в корзине. Наследуется от класса Card.
 
-Конструктор: `constructor(container: HTMLElement)` - принимает на вход контейнер карточки товара.
+Конструктор: `constructor(container: HTMLElement, actions?: ICardActions)` - принимает на вход контейнер карточки товара и объект с обработчиками событий.
 
 Поля класса:
-`protected index(value: string)` - наименование товара.
-`protected deleteButtonElement(value: string)` - кнопка для удаления товара из корзины.
+`protected indexElement` - порядковый номер товара в корзине.
+`protected deleteButtonElement` - кнопка для удаления товара из корзины.
 
 Методы класса:
 `set indexProductBasket(value: string)` - устанавливает порядковое значение товара в корзине.
@@ -319,7 +319,7 @@ selectedProduct, если товар не выбран, то сохраняет 
 #### Класс Basket
 Класс отвечает за отрисовку корзины с товарами. Класс имеет сеттеры basketList - для установки списка товаров в корзине и basketPrice для установки общей суммы корзины. Наследуется от класса Component<T>.
 
-Конструктор: `constructor(container: HTMLElement)` - принимает на вход контейнер корзины товаров.
+Конструктор: `constructor(protected events: IEvents, container: HTMLElement)` - принимает на вход брокер событий и контейнер корзины товаров.
 
 Поля класса:
 `protected basketListElement` - элемент, содержащий список товаров в корзине.
@@ -328,7 +328,7 @@ selectedProduct, если товар не выбран, то сохраняет 
 
 Методы класса:
 `set basketList(items: HTMLElement[])` - устанавливает список товаров в корзине
-`set basketPrice(value: string)` - устанавливает цену всех товаров в корзине.
+`set basketPrice(value: number)` - устанавливает цену всех товаров в корзине.
 
 #### Класс Form
 Класс отвечает за базовую отрисовку формы оформления заказа. Является родителем для остальных форм при оформлении заказа. Класс имеет сеттеры errorForm - для утановки текст ошибок и toggleButtonForm для переключения состояния кнопки отправки формы. Наследуется от класса Component<T>.
@@ -364,3 +364,9 @@ selectedProduct, если товар не выбран, то сохраняет 
 Поля класса:
 `protected emailInput` - поле для ввода email.
 `protected phoneInput` - поле для ввода номера телефона.
+
+### События
+
+basket:open = Отправляется, когда пользователь открывает корзину.
+modal:close = Отправляется, когда пользователь закрывает модальное окно.
+order:open = Отправляется, когда пользователь нажимает кнопку оформить в корзине.
