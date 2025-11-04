@@ -5,20 +5,20 @@ import { IProduct  } from '../../types/index'
 export interface ICard extends Pick<IProduct, 'title' | 'price'> {}
 
 export abstract class Card<T> extends Component<ICard & T> {
-    protected title: HTMLElement;
-    protected price: HTMLElement;
+    protected titleElement: HTMLElement;
+    protected priceElement: HTMLElement;
 
     constructor(container: HTMLElement) {
         super(container);
 
-        this.price = ensureElement<HTMLElement>('.card__price', this.container);
-        this.title = ensureElement<HTMLElement>('.card__title', this.container);
+        this.priceElement = ensureElement<HTMLElement>('.card__price', this.container);
+        this.titleElement = ensureElement<HTMLElement>('.card__title', this.container);
     }
 
-    set titleProduct(value: string) {
-        this.title.textContent = value.trim();
+    set title(value: string) {
+        this.titleElement.textContent = value.trim();
     }
-    set priceProduct(value: number | null) {
-        this.price.textContent = value ? `${value} синапсов` : 'Бесценно';
+    set price(value: number | null) {
+        this.priceElement.textContent = value ? `${value} синапсов` : 'Бесценно';
     }
 }

@@ -3,6 +3,7 @@ import { IProduct  } from '../../types/index'
 import { categoryMap } from '../../utils/constants'
 import { Card } from './Card'
 import { ICardActions, TCategory } from './CardCatalog'
+import { CDN_URL } from '../../utils/constants';
 
 interface ICardPreview extends Pick<IProduct, 'title' | 'price' | 'image' | 'category' | 'description'> {};
 
@@ -37,10 +38,15 @@ export class CardPreview extends Card<ICardPreview> {
     }
 
     set image(value: string) {
-        this.setImage(this.imageElement, value, this.titleProduct)
+        this.setImage(this.imageElement, `${CDN_URL}${value.replace('.svg', '.png')}`, this.title)
     }
 
     set description(value: string) {
         this.descriptionElement.textContent = value.trim();
+    }
+
+    buttonTextToggle(value: string, boolean: boolean) {
+        this.buttonPreviewElement.textContent = value;
+        this.buttonPreviewElement.disabled = boolean;
     }
 }

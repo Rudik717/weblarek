@@ -18,6 +18,11 @@ export interface IProduct {
   description: string;
 }
 
+export interface IProductResponse {
+  title: string;
+  items: IProduct[];
+}
+
 export type TPayment = "card" | "cash" | "";
 
 export interface ICustomer {

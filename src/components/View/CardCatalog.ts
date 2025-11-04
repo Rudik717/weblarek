@@ -2,6 +2,7 @@ import { ensureElement } from '../../utils/utils'
 import { IProduct  } from '../../types/index'
 import { categoryMap } from '../../utils/constants'
 import { Card } from './Card'
+import { CDN_URL } from '../../utils/constants';
 
 export interface ICardActions {
   onClick: (event: MouseEvent) => void;
@@ -35,6 +36,6 @@ export class CardCatalog extends Card<ICardCatalog> {
     }
 
     set image(value: string) {
-        this.setImage(this.imageElement, value, this.titleProduct)
+        this.setImage(this.imageElement, `${CDN_URL}${value.replace('.svg', '.png')}`, this.title);
     }
 }

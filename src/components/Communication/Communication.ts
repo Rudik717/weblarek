@@ -1,4 +1,4 @@
-import { IApi, IProduct, IOrder, IOrderResult } from "../../types/index.ts";
+import { IApi, IProductResponse, IOrder, IOrderResult } from "../../types/index.ts";
 
 export class Communication {
   private api: IApi;
@@ -7,8 +7,8 @@ export class Communication {
     this.api = api;
   }
 
-  getProducts(): Promise<IProduct[]> {
-    return this.api.get<IProduct[]>("/product/");
+  getProducts(): Promise<IProductResponse> {
+    return this.api.get<IProductResponse>("/product/");
   }
 
   sendOrder(order: IOrder): Promise<IOrderResult> {
