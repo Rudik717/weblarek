@@ -48,6 +48,10 @@ const successOrder = new SuccessOrder(
   cloneTemplate(ensureElement<HTMLTemplateElement>("#success"))
 );
 
+events.onAll(({ eventName, data }) => {
+  console.log(eventName, data);
+});
+
 events.on("catalog:change", () => {
   const productCards = catalogModel.getProductList().map((product) => {
     const card = new CardCatalog(
@@ -79,7 +83,6 @@ let cardPreview: CardPreview;
 
 events.on("catalog:selectedProductChange", () => {
   const product = catalogModel.getSelectedProduct();
-  console.log(product);
   if (product) {
     cardPreview = new CardPreview(cloneTemplate(cardPreviewTemplate), {
       onClick: () => {
@@ -138,7 +141,6 @@ events.on("basket:open", () => {
 events.on("order:open", () => {
   const { payment, address } = customerModel.validate();
   const customerData = customerModel.getData();
-  console.log(customerData);
 
   modal.render({
     modalContent: formOrder.render({
@@ -215,6 +217,8 @@ events.on("contacts:submit", () => {
     total: shoppingCartModel.getProductsTotalPrice(),
     items: shoppingCartModel.getProductCartList().map((product) => product.id),
   };
+   shoppingCartModel.clear();
+   customerModel.clear();
 
   communication.sendOrder(dataOrder).then((res) => {
     modal.render({
@@ -222,13 +226,11 @@ events.on("contacts:submit", () => {
         orderAmount: res.total,
       }),
     });
-    customerModel.clear();
   });
 });
 
 events.on("modal:close", () => {
   modal.closeModal();
-  shoppingCartModel.clear();
 });
 
 communication
