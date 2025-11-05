@@ -23,7 +23,6 @@ export class Catalog {
   getProductById(id: string): IProduct | undefined {
     return this.productList.find((product) => product.id === id);
   }
-  /*  На данном этапе эти методы мне не пригодились, но могут быть полезными для других задач*/
 
   setSelectedProduct(product: IProduct | null): void {
     this.selectedProduct = product;
