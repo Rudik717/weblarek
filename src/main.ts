@@ -48,10 +48,6 @@ const successOrder = new SuccessOrder(
   cloneTemplate(ensureElement<HTMLTemplateElement>("#success"))
 );
 
-events.onAll(({ eventName, data }) => {
-  console.log(eventName, data);
-});
-
 events.on("catalog:change", () => {
   const productCards = catalogModel.getProductList().map((product) => {
     const card = new CardCatalog(
@@ -195,7 +191,6 @@ events.on(
         validForm: !email && !phone,
         errorForm: Object.values({ email, phone }).filter(Boolean).join(", "),
       });
-      console.log(customerData);
     }
   }
 );
@@ -234,8 +229,6 @@ events.on("contacts:submit", () => {
 events.on("modal:close", () => {
   modal.closeModal();
   shoppingCartModel.clear();
-  console.log("Данные:");
-  console.log(customerModel.getData());
 });
 
 communication
