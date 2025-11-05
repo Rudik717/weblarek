@@ -1,8 +1,8 @@
 import { ICustomer, TPayment } from "../../types/index.ts";
-import { IEvents } from '../base/Events'
+import { IEvents } from "../base/Events";
 
 export class Customer {
-  private payment: TPayment = '';
+  private payment: TPayment = "";
   private address: string = "";
   private email: string = "";
   private phone: string = "";
@@ -14,22 +14,22 @@ export class Customer {
 
   setPayment(payment: TPayment): void {
     this.payment = payment;
-    this.events.emit('customer:change', { field: 'payment', value: payment });
+    this.events.emit("customer:change", { field: "payment", value: payment });
   }
 
   setAddress(address: string): void {
     this.address = address;
-    this.events.emit('customer:change', { field: 'address', value: address });
+    this.events.emit("customer:change", { field: "address", value: address });
   }
 
   setEmail(email: string): void {
     this.email = email;
-    this.events.emit('customer:change', { field: 'email', value: email });
+    this.events.emit("customer:change", { field: "email", value: email });
   }
 
   setPhone(phone: string): void {
     this.phone = phone;
-    this.events.emit('customer:change', { field: 'phone', value: phone });
+    this.events.emit("customer:change", { field: "phone", value: phone });
   }
 
   getData(): ICustomer {
@@ -46,7 +46,7 @@ export class Customer {
     this.address = "";
     this.email = "";
     this.phone = "";
-    this.events.emit('customer:clear');
+    this.events.emit("customer:change");
   }
 
   validate(): { [key: string]: string } {

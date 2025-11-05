@@ -1,4 +1,4 @@
-import { Component } from '../base/Component'
+import { Component } from "../base/Component";
 
 interface IGallery {
   catalog: HTMLElement[];
@@ -7,7 +7,7 @@ interface IGallery {
 export class Gallery extends Component<IGallery> {
   protected galleryElement: HTMLElement;
   constructor(container: HTMLElement) {
-    super(container)
+    super(container);
 
     this.galleryElement = container;
   }
