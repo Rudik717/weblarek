@@ -2,8 +2,9 @@ import { ensureElement } from "../../utils/utils";
 import { IProduct } from "../../types/index";
 import { categoryMap } from "../../utils/constants";
 import { Card } from "./Card";
-import { ICardActions, TCategory } from "./CardCatalog";
+import { TCategory } from "./CardCatalog";
 import { CDN_URL } from "../../utils/constants";
+import { IEvents } from "../base/Events";
 
 interface ICardPreview
   extends Pick<
@@ -17,9 +18,10 @@ export class CardPreview extends Card<ICardPreview> {
   protected descriptionElement: HTMLElement;
   protected buttonPreviewElement: HTMLButtonElement;
 
-  constructor(container: HTMLElement, actions?: ICardActions) {
+  constructor(container: HTMLElement, protected events: IEvents) {
     super(container);
 
+    this.events = events;
     this.imageElement = ensureElement<HTMLImageElement>(
       ".card__image",
       this.container
@@ -37,9 +39,9 @@ export class CardPreview extends Card<ICardPreview> {
       this.container
     );
 
-    if (actions?.onClick) {
-      this.buttonPreviewElement.addEventListener("click", actions.onClick);
-    }
+    this.buttonPreviewElement.addEventListener("click", () => {
+      this.events.emit("preview:click");
+    });
   }
 
   set category(value: TCategory) {

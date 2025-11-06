@@ -34,6 +34,7 @@ const basket = new Basket(
   cloneTemplate(ensureElement<HTMLTemplateElement>("#basket"))
 );
 const cardPreviewTemplate = ensureElement<HTMLTemplateElement>("#card-preview");
+const cardPreview = new CardPreview(cloneTemplate(cardPreviewTemplate), events);
 const cardBasketTemplate = ensureElement<HTMLTemplateElement>("#card-basket");
 const formOrder = new FormOrder(
   events,
@@ -59,6 +60,19 @@ events.on("catalog:change", () => {
   gallery.render({ catalog: productCards });
 });
 
+events.on("preview:click", () => {
+  const product = catalogModel.getSelectedProduct();
+  if (!product) {
+    return;
+  }
+  if (!shoppingCartModel.hasProduct(product.id)) {
+    shoppingCartModel.addProduct(product);
+  } else {
+    shoppingCartModel.removeProduct(product);
+  }
+  modal.closeModal();
+});
+
 function updatePreviewButtonText(card: CardPreview, product: IProduct) {
   /*Функция для обновления текста кнопки в превью товара*/
   const inCart = shoppingCartModel.hasProduct(product.id);
@@ -75,21 +89,9 @@ events.on("product:selected", (product: IProduct) => {
   catalogModel.setSelectedProduct(product);
 });
 
-let cardPreview: CardPreview;
-
 events.on("catalog:selectedProductChange", () => {
   const product = catalogModel.getSelectedProduct();
   if (product) {
-    cardPreview = new CardPreview(cloneTemplate(cardPreviewTemplate), {
-      onClick: () => {
-        if (!shoppingCartModel.hasProduct(product.id)) {
-          shoppingCartModel.addProduct(product);
-        } else {
-          shoppingCartModel.removeProduct(product);
-        }
-        modal.closeModal();
-      },
-    });
     modal.render({
       modalContent: cardPreview.render({ ...product }),
     });
@@ -101,10 +103,6 @@ events.on("catalog:selectedProductChange", () => {
 
 events.on("shoppingCart:change", () => {
   header.counter = shoppingCartModel.getProductsCount();
-  const product = catalogModel.getSelectedProduct();
-  if (cardPreview && product) {
-    updatePreviewButtonText(cardPreview, product);
-  }
   const basketList = shoppingCartModel
     .getProductCartList()
     .map((product, index) => {
@@ -118,10 +116,10 @@ events.on("shoppingCart:change", () => {
     });
 
   const basketPrice = shoppingCartModel.getProductsTotalPrice();
-      basket.render({
-      basketList,
-      basketPrice,
-    })
+  basket.render({
+    basketList,
+    basketPrice,
+  });
 });
 
 events.on("basket:open", () => {
