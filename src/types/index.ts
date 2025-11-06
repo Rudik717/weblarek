@@ -19,7 +19,7 @@ export interface IProduct {
 }
 
 export interface IProductResponse {
-  title: string;
+  total: number;
   items: IProduct[];
 }
 
