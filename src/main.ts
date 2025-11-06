@@ -118,13 +118,10 @@ events.on("shoppingCart:change", () => {
     });
 
   const basketPrice = shoppingCartModel.getProductsTotalPrice();
-
-  modal.render({
-    modalContent: basket.render({
+      basket.render({
       basketList,
       basketPrice,
-    }),
-  });
+    })
 });
 
 events.on("basket:open", () => {
@@ -220,13 +217,13 @@ events.on("contacts:submit", () => {
         orderAmount: res.total,
       }),
     });
+    shoppingCartModel.clear();
     customerModel.clear();
   });
 });
 
 events.on("modal:close", () => {
   modal.closeModal();
-  shoppingCartModel.clear();
 });
 
 communication
