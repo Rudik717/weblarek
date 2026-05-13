@@ -1,7 +1,9 @@
 import { defineConfig } from 'vite'
 
-export default defineConfig({
-  base: '/weblarek/',
+export default defineConfig(({ mode }) => ({
+  base: mode === 'production'
+    ? '/weblarek/'
+    : '/',
 
   css: {
     preprocessorOptions: {
@@ -12,4 +14,4 @@ export default defineConfig({
       },
     },
   },
-})
+}))
